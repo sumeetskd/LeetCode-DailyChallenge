@@ -1,2 +1,2 @@
 # LeetCode-DailyChallenge
- Soluions to DailyChallenges - LeetCode Monthly
+ Soluion to DailyChallenges - LeetCode Monthly
