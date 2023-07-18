@@ -1,0 +1,84 @@
+class LRUCache {
+    private Map<Integer, Node> m;
+    private Node head;
+    private Node tail;
+    private int size;
+    public LRUCache(int capacity) {
+        size = capacity;
+        m = new HashMap<>();
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    private void deleteNode(Node p){
+        Node prevNode = p.prev;
+        Node nextNode = p.next;
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+    }
+
+    private void addNode(Node newNode){
+        Node temp = head.next;
+        head.next = newNode;
+        newNode.prev = head;
+        newNode.next = temp;
+        temp.prev = newNode;
+    }
+    
+    public int get(int key) {
+        if(!m.containsKey(key)){
+            return -1;
+        }
+        Node p = m.get(key);
+        deleteNode(p);
+        addNode(p);
+        m.put(key, head.next);
+        return head.next.val;
+    }
+    
+    public void put(int key, int value) {
+        if(m.containsKey(key)){
+            Node p = m.get(key);
+            deleteNode(p);
+            p.val = value;
+            addNode(p);
+            m.put(key, head.next);
+        }else{
+            Node l = new Node(key, value);
+            if(m.size()==size){
+                //tail.prev points to the LRU as each time we add a new node, tail is pushed to the LRU position
+                Node prevNode = tail.prev;  
+                deleteNode(prevNode);
+                addNode(l);
+                m.remove(prevNode.key);
+                m.put(key, head.next);
+            }else{
+                addNode(l);
+                m.put(key, head.next);
+            }
+        }
+    }
+}
+
+class Node{
+    public int key;
+    public int val;
+    public Node next;
+    public Node prev;
+
+    public Node(int key, int val){
+        this.key = key;
+        this.val = val;
+        next = null;
+        prev = null;
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
