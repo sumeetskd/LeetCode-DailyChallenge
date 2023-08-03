@@ -1,0 +1,23 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        if(digits.length()==0){
+            return new ArrayList<>();
+        }
+        //maps each digit from 2 to 9 to their corresponding letters on a telephone's buttons
+        String[] phone_map = {"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        //Iteratively Build Combinations
+        List<String> combinations = new ArrayList<>();
+        combinations.add("");
+        for(char digit : digits.toCharArray()){
+            List<String> newCombinations = new ArrayList<>();
+            for(String combination:combinations){
+                
+                for(char letter : phone_map[digit-'2'].toCharArray()){
+                    newCombinations.add(combination+letter);
+                }
+            }
+            combinations = newCombinations;
+        }
+        return combinations;
+    }
+}
