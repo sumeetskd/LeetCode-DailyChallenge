@@ -1,0 +1,67 @@
+How function call works in lang-
+-> primitive variable also go to the stack -> int i = 1
+
+1. while the function has not finished executing, it will remain in the stack
+2. when a function finishes execution, it is removed from the stack and the flow of program will be returned to the function where it was called.
+3. if you are calling a function again and again, it will take separate memory in the stack
+4. if we are not giving base condition in resursion, each funciton call will consume memory in the stack and eventually we the stack will run out of memory, this condition is called stack overflow and stack overflow error will be thrown.
+5. When the last statement in the recusive function is not returning any value and it's simply performing the operation, it is known as tail recursion
+
+eg:
+
+void print(k){
+	if(k==5){
+		return;
+	}
+	SOP(k);
+	//this is tail recursion as the last step is not returning any value
+}
+
+function calls go to stack in memory:
+
+main()
+print1(1)
+	print2(2)
+		print3(3)
+			print4(4)
+				print5(5)
+
+when funciton finishes execution:
+print5()-> pop
+print4()-> pop
+print3()-> pop
+print2()-> pop
+print1()-> pop
+main()-> pop
+
+
+----------------------------------------
+
+
+When you write the recursion in a formula it is known as recurence relation: 
+
+-> F(n) = F(n-1) + F(n-2) //recurence relation
+
+-> the base condition is represented by the answers we already have - F(0) & F(1) = 1
+
+eg: 
+static int fibo(int n){
+	if(n<2){
+		return n;
+	}
+	return fibo(n-1) + fibo(n-2);
+	// it is not tail recursion
+}
+
+
+---------------------------------------------
+Binary Search::
+Recurence Relation: F(n) = O(1) + F(n/2)
+
+O(1) = constant time to compare the middle element
+
+
+Types of recurrence relation:
+
+1. Linear recurence relation - it takes linear time more time with repeated function calls
+2. Divide and Conqure recurence relation
