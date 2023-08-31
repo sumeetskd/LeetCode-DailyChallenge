@@ -1,0 +1,31 @@
+class Solution {
+    public int minTaps(int n, int[] ranges) {
+        //n -> length of the garden
+        int[] max_reach = new int[n+1]; //tracks max react of each position
+        //iteration over taps
+        for(int i = 0; i<ranges.length; i++){
+            int start = Math.max(0, i - ranges[i]);
+            int end = Math.min(i + ranges[i], n);
+            max_reach[start] = Math.max(end, max_reach[start]); //stores the range of current start position
+        }
+        //no. of taps used
+        int taps = 0;
+        //current rightmost position
+        int currEnd = 0;
+        //next rightmost position
+        int nextEnd = 0;
+
+        //Iterate through the garden
+        for(int i = 0; i<=n; i++){
+            if(i > nextEnd){
+                return -1; 
+            }
+            if(currEnd<i){
+                taps++;
+                currEnd = nextEnd;
+            }
+            nextEnd = Math.max(nextEnd, max_reach[i]);
+        }
+        return taps;
+    }
+}
