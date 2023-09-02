@@ -1,0 +1,10 @@
+private static void printReverse(char[] str){
+  helper(0, str);
+}
+private static void helper(int index, char[] s){
+  if(s == null || index>=s.length()){
+    return;
+  }
+  helper(index+1, s);
+  System.out.print(s[index]);
+}
