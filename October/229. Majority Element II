@@ -1,0 +1,19 @@
+import java.util.Hashtable;
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+        Hashtable<Integer, Integer> mp = new Hashtable<>();
+        int n = nums.length;
+        List<Integer> arr = new ArrayList<>();
+        int s = n/3;
+        for(int i = 0; i<nums.length; i++){
+            mp.put(nums[i], mp.getOrDefault(nums[i], 0) + 1);
+        }
+        for(Map.Entry<Integer, Integer> entry : mp.entrySet()){
+            int v = entry.getValue().intValue();
+            if(v>s){
+                arr.add(entry.getKey());
+            }
+        }
+        return arr;
+    }
+}
